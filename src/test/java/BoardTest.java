@@ -2,7 +2,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -61,9 +60,24 @@ public class BoardTest {
     }
 
     @Test
+    public void shouldDisplayOInLocationOneWhenLocationOneIsMarked() throws Exception {
+        locations.set(0, "O");
+
+        board.drawBoard();
+
+        verify(printStream).println(
+                        "O| | \n" +
+                        "-----\n" +
+                        " | | \n" +
+                        "-----\n" +
+                        " | | ");
+
+    }
+
+    @Test
     public void shouldDisplayASymbolInAllLocationsInCorrectPositionOnBoard() throws Exception {
         for (int i = 1; i <= 9; i++) {
-            locations.set(i-1, String.valueOf(i));
+            locations.set(i - 1, String.valueOf(i));
         }
 
         board.drawBoard();
@@ -75,5 +89,20 @@ public class BoardTest {
                 "-----\n" +
                 "7|8|9");
 
+    }
+
+    @Test
+    public void shouldDisplayBoardWithBothPlayersPiecesAfterBothPlayersPlay() throws Exception {
+        board.markLocation(1, "X");
+        board.markLocation(2, "O");
+
+        board.drawBoard();
+
+        verify(printStream).println(
+                        "X|O| \n" +
+                        "-----\n" +
+                        " | | \n" +
+                        "-----\n" +
+                        " | | ");
     }
 }
