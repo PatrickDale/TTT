@@ -1,5 +1,3 @@
-import com.javafx.tools.doclets.formats.html.SourceToHTMLConverter;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -34,6 +32,9 @@ public class Player {
     public void makeAMove() {
         printStream.print("Enter a number between 1 and 9: ");
         Integer locationToMark = inputLocationToMark();
-        board.markLocation(locationToMark, piece);
+        Boolean isLocationMarked = board.markLocation(locationToMark, piece);
+        if (!isLocationMarked) {
+            makeAMove();
+        }
     }
 }

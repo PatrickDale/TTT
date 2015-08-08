@@ -15,13 +15,18 @@ public class Board {
 
     public void drawBoard() {
         printStream.println(locations.get(0) + "|" + locations.get(1) + "|" + locations.get(2) +
-                            "\n-----\n" +
-                            locations.get(3) + "|" + locations.get(4) + "|" + locations.get(5) +
-                            "\n-----\n" +
-                            locations.get(6) + "|" + locations.get(7) + "|" + locations.get(8));
+                "\n-----\n" +
+                locations.get(3) + "|" + locations.get(4) + "|" + locations.get(5) +
+                "\n-----\n" +
+                locations.get(6) + "|" + locations.get(7) + "|" + locations.get(8));
     }
 
-    public void markLocation(Integer location, String piece) {
-        locations.set(location - 1, piece);
+    public boolean markLocation(Integer location, String piece) {
+        if (locations.get(location - 1).equals(" ")) {
+            locations.set(location - 1, piece);
+            return true;
+        }
+        printStream.println("Location already taken.");
+        return false;
     }
 }
