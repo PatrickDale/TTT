@@ -67,4 +67,23 @@ public class GameTest {
         verify(player, times(2)).makeAMove();
         verify(player2, times(1)).makeAMove();
     }
+
+    @Test
+    public void shouldCheckThreeInARowWhenLocationIsMarked() throws Exception {
+        when(board.hasOpenLocations()).thenReturn(true).thenReturn(false);
+
+        game.start();
+
+        verify(board).checkThreeInARow();
+    }
+
+    @Test
+    public void shouldEndGameWhenLocationMarkedCreatesThreeInARow() throws Exception {
+        when(board.hasOpenLocations()).thenReturn(true);
+        when(board.checkThreeInARow()).thenReturn(true);
+
+        game.start();
+
+        verify(board, times(1)).checkThreeInARow();
+    }
 }

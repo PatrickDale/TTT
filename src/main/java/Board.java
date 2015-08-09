@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.io.PrintStream;
 import java.util.List;
 
@@ -7,10 +9,12 @@ import java.util.List;
 public class Board {
     private PrintStream printStream;
     private List<String> locations;
+    private ThreeInARow threeInARow;
 
-    public Board(PrintStream printStream, List<String> locations) {
+    public Board(PrintStream printStream, List<String> locations, ThreeInARow threeInARow) {
         this.printStream = printStream;
         this.locations = locations;
+        this.threeInARow = threeInARow;
     }
 
     public void drawBoard() {
@@ -21,7 +25,7 @@ public class Board {
                 locations.get(6) + "|" + locations.get(7) + "|" + locations.get(8));
     }
 
-    public boolean markLocation(Integer location, String piece) {
+    public Boolean markLocation(Integer location, String piece) {
         if (locations.get(location - 1).equals(" ")) {
             locations.set(location - 1, piece);
             return true;
@@ -37,6 +41,13 @@ public class Board {
             }
         }
         printStream.println("Game is a draw");
+        return false;
+    }
+
+    public Boolean checkThreeInARow() {
+        if (threeInARow.anyThreeInARow()) {
+            return true;
+        }
         return false;
     }
 }

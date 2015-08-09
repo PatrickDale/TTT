@@ -20,6 +20,9 @@ public class Game {
         while (board.hasOpenLocations()) {
             takeTurn();
             alternateCurrentPlayer();
+            if (board.checkThreeInARow()) {
+                break;
+            }
         }
     }
 

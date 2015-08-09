@@ -9,10 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.booleanThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by pdale on 8/7/15.
@@ -22,12 +19,14 @@ public class BoardTest {
     private PrintStream printStream;
     private Board board;
     private List<String> locations;
+    private ThreeInARow threeInARow;
 
     @Before
     public void setUp() throws Exception {
         printStream = mock(PrintStream.class);
         locations = asList(" ", " ", " ", " ", " ", " ", " ", " ", " ");
-        board = new Board(printStream, locations);
+        threeInARow = mock(ThreeInARow.class);
+        board = new Board(printStream, locations, threeInARow);
     }
 
     @Test
@@ -57,10 +56,10 @@ public class BoardTest {
 
         verify(printStream).println(
                 "X| | \n" +
-                "-----\n" +
-                " | | \n" +
-                "-----\n" +
-                " | | ");
+                        "-----\n" +
+                        " | | \n" +
+                        "-----\n" +
+                        " | | ");
     }
 
     @Test
@@ -154,5 +153,12 @@ public class BoardTest {
         board.hasOpenLocations();
 
         verify(printStream).println("Game is a draw");
+    }
+
+    @Test
+    public void shouldCheckAnyThreeInARowWhenCheckingForThreeInARow() throws Exception {
+        board.checkThreeInARow();
+
+        verify(threeInARow).anyThreeInARow();
     }
 }

@@ -10,7 +10,7 @@ import static java.util.Arrays.asList;
 public class Main {
     public static void main(String[] args) {
         List<String> locations = asList(" ", " ", " ", " ", " ", " ", " ", " ", " ");
-        Board board = new Board(System.out, locations);
+        Board board = new Board(System.out, locations, new ThreeInARow(locations, System.out));
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         Game game = new Game(board, new Player(System.out, bufferedReader, board, "X"), new Player(System.out, bufferedReader, board, "O"));
         game.start();
