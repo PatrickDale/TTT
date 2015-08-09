@@ -29,4 +29,14 @@ public class Board {
         printStream.println("Location already taken.");
         return false;
     }
+
+    public Boolean hasOpenLocations() {
+        for (String location : locations) {
+            if (location.equals(" ")) {
+                return true;
+            }
+        }
+        printStream.println("Game is a draw");
+        return false;
+    }
 }

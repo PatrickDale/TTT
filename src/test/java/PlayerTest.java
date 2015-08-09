@@ -69,24 +69,4 @@ public class PlayerTest {
 
         verify(board, times(1)).markLocation(DEFAULT_LOCATION, DEFAULT_PIECE);
     }
-
-    //    @Test
-//    public void shouldNotBeAbleToMarkLocationOnBoardWhenLocationIsAlreadyTakenOnBoard() throws Exception {
-//        player.makeAMove();
-//
-//        assertFalse(board.markLocation(2, DEFAULT_PIECE));
-//    }
-
-    //
-//    @Test
-//    public void shouldCheckIfLocationToMarkOnBoardIsTakenWhenMarkingLocationOnBoard() throws Exception {
-//        player.makeAMove();
-//
-//        verify(board).isLocationMarked(1);
-//    }
-//
-//    @Test
-//    public void shouldFindANewLocationToMarkWhenLocationToMarkIsTaken() throws Exception {
-//        when(board.isLocationMarked(1)).thenReturn(true);
-//    }
 }

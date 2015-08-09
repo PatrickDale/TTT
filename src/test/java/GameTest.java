@@ -1,9 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by pdale on 8/7/15.
@@ -25,6 +23,8 @@ public class GameTest {
 
     @Test
     public void shouldDrawBoardThreeTimesWhenGameStartsAndBothPlayersMove() throws Exception {
+        when(board.hasOpenLocations()).thenReturn(true).thenReturn(true).thenReturn(false);
+
         game.start();
 
         verify(board, times(3)).drawBoard();
@@ -32,6 +32,8 @@ public class GameTest {
 
     @Test
     public void shouldHavePlayerMoveWhenGameStarts() throws Exception {
+        when(board.hasOpenLocations()).thenReturn(true).thenReturn(false);
+
         game.start();
 
         verify(player).makeAMove();
@@ -39,9 +41,30 @@ public class GameTest {
 
     @Test
     public void shouldHavePlayer2MoveWhenGameStarts() throws Exception {
+        when(board.hasOpenLocations()).thenReturn(true).thenReturn(true).thenReturn(false);
+
         game.start();
 
         verify(player2).makeAMove();
+    }
 
+    @Test
+    public void shouldNotHavePlayerMoveWhenGameBoardIsFull() throws Exception {
+        when(board.hasOpenLocations()).thenReturn(false);
+
+        game.start();
+
+        verifyZeroInteractions(player);
+        verifyZeroInteractions(player2);
+    }
+
+    @Test
+    public void shouldHavePlayersAlternateMovesWhenGameBoardIsNotFull() throws Exception {
+        when(board.hasOpenLocations()).thenReturn(true).thenReturn(true).thenReturn(true).thenReturn(false);
+
+        game.start();
+
+        verify(player, times(2)).makeAMove();
+        verify(player2, times(1)).makeAMove();
     }
 }

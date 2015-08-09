@@ -5,6 +5,7 @@ public class Game {
     private Board board;
     private Player player;
     private Player player2;
+    private Player currentPlayer;
 
     public Game(Board board, Player player, Player player2) {
         this.board = board;
@@ -14,11 +15,24 @@ public class Game {
 
     public void start() {
         board.drawBoard();
+        currentPlayer = player;
 
-        player.makeAMove();
-        board.drawBoard();
+        while (board.hasOpenLocations()) {
+            takeTurn();
+            alternateCurrentPlayer();
+        }
+    }
 
-        player2.makeAMove();
+    private void alternateCurrentPlayer() {
+        if (currentPlayer == player) {
+            currentPlayer = player2;
+        } else {
+            currentPlayer = player;
+        }
+    }
+
+    private void takeTurn() {
+        currentPlayer.makeAMove();
         board.drawBoard();
     }
 }

@@ -9,8 +9,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.booleanThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
  * Created by pdale on 8/7/15.
@@ -127,5 +129,30 @@ public class BoardTest {
         board.markLocation(1, "X");
 
         verify(printStream).println("Location already taken.");
+    }
+
+    @Test
+    public void shouldHaveOpenLocationsToMoveWhenTheBoardIsNotFull() throws Exception {
+        assertTrue(board.hasOpenLocations());
+    }
+
+    @Test
+    public void shouldNotHaveOpenLocationsToMoveWhenTheBoardIsFull() throws Exception {
+        for (int i = 1; i <= 9; i++) {
+            locations.set(i - 1, String.valueOf(i));
+        }
+
+        assertFalse(board.hasOpenLocations());
+    }
+
+    @Test
+    public void shouldDisplayThatGameIsADrawWhenTheBoardIsFull() throws Exception {
+        for (int i = 1; i <= 9; i++) {
+            locations.set(i - 1, String.valueOf(i));
+        }
+
+        board.hasOpenLocations();
+
+        verify(printStream).println("Game is a draw");
     }
 }
